@@ -4,26 +4,29 @@
 dataset = read.csv('Position_Salaries.csv')
 dataset = dataset[2:3]
 
-# Splitting the dataset into the Training set and Test set
-# # install.packages('caTools')
-# library(caTools)
-# set.seed(123)
-# split = sample.split(dataset$Salary, SplitRatio = 2/3)
-# training_set = subset(dataset, split == TRUE)
-# test_set = subset(dataset, split == FALSE)
+# Splitting the dataset into the Training set and Test set is not necessary since we have so little samples.
 
-# Feature Scaling
-# training_set = scale(training_set)
-# test_set = scale(test_set)
+# Feature Scaling is not needed in this case since we have little independet variables (1)
 
 # Fitting Linear Regression to the dataset
 lin_reg = lm(formula = Salary ~ .,
              data = dataset)
 
 # Fitting Polynomial Regression to the dataset
+#I suppose looping would be a way to get rid of this...
 dataset$Level2 = dataset$Level^2
 dataset$Level3 = dataset$Level^3
 dataset$Level4 = dataset$Level^4
+
+# exponent = 1
+# repeat{
+#   sprintf("dataset$level%d",exponent) = sprintf("dataset$Level^%d",exponent)
+#   exponent++
+#     if(exponent == 5){
+#       break
+#     }
+# }
+
 poly_reg = lm(formula = Salary ~ .,
               data = dataset)
 
